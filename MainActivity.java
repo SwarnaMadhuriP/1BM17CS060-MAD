@@ -1,54 +1,72 @@
-package com.example.shapes;
+package com.example.gps;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import android.Manifest;
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.widget.ImageView;
-import static android.graphics.Bitmap.*;
-import static android.graphics.Bitmap.Config.*;
+//import android.support.v4.app.ActivityCompat;
+//import android.test.mock.MockPackageManager;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 public class MainActivity extends AppCompatActivity {
 
+    Button btnShowLocation;
+    private static final int REQUEST_CODE_PERMISSION = 2;
+    String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
+
+    // GPSTracker class
+    GPSTracker gps;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Bitmap bg =Bitmap.createBitmap( 720,1280,Bitmap.Config.ARGB_8888);
 
-        ImageView i = (ImageView) findViewById(R.id.imageView);
-        i.setBackgroundDrawable(new BitmapDrawable(bg));
+        try {
+            if (ActivityCompat.checkSelfPermission(this, mPermission)
+                    != PackageManager.PERMISSION_GRANTED) {
 
+                ActivityCompat.requestPermissions(this, new String[]{mPermission},
+                        REQUEST_CODE_PERMISSION);
 
-        Canvas canvas = new Canvas(bg);
-        Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
-        paint.setTextSize(50);
+                // If any permission above not allowed by user, this condition wil execute every time, else your else part will work
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        canvas.drawText("Rectangle", 420, 150, paint);
-        canvas.drawRect(400, 200, 650, 700, paint);
+        btnShowLocation = (Button) findViewById(R.id.button);
 
-        //To draw a Circle
-        canvas.drawText("Circle", 120, 150, paint);
-        canvas.drawCircle(200, 350, 150, paint);
+        // show location button click event
+        btnShowLocation.setOnClickListener(new View.OnClickListener() {
 
-        //To draw a Square
-        canvas.drawText("Square", 120, 800, paint);
-        canvas.drawRect(50, 850, 350, 1150, paint);
+            @Override
+            public void onClick(View arg0) {
+                // create class object
+                gps = new GPSTracker(MainActivity.this);
 
-        //To draw a Line
-        canvas.drawText("Line", 480, 800, paint);
-        canvas.drawLine(520, 850, 520, 1150, paint);
+                // check if GPS enabled
+                if(gps.canGetLocation()){
+                    // if(gps.getLocation()!=null){
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+
+                    // \n is for new line
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+                            + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                }else{
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                }
+
+            }
+        });
     }
 }
-
-
-
-
-
-
-
-
-
