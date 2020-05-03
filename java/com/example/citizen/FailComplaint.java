@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import java.text.ParseException;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -90,10 +89,10 @@ public class FailComplaint extends Activity implements android.view.View.OnClick
                 showMessage("Error", "Please enter all values");
                 return;
             }*/
-           if(!checkDataEntered()){
-               showMessage("Error", "Please enter all values");
-               return;
-           }
+            if(!checkDataEntered()){
+                showMessage("Error", "Please enter all values");
+                return;
+            }
             icomplainttype=s.getSelectedItem();
             ivictimname=victimname.getText();
             iconvictname=convictname.getText();
@@ -163,7 +162,7 @@ public class FailComplaint extends Activity implements android.view.View.OnClick
         builder.setMessage(message);
         builder.show();
     }
-   public void clearText()
+    public void clearText()
     {
         complaintname.setText("");
         convictname.setText("");
@@ -175,4 +174,3 @@ public class FailComplaint extends Activity implements android.view.View.OnClick
         complaintname.requestFocus();
     }
 }
-

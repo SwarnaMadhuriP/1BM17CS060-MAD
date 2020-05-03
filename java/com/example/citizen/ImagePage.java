@@ -62,7 +62,7 @@ public class ImagePage extends AppCompatActivity {
       //  photo=(ImageView)findViewById(R.id.photo);
         upload=(Button)findViewById(R.id.upload);
         filecomplaint=(Button)findViewById(R.id.file22);
-        db = openOrCreateDatabase("ComplaintRegistrationDB", Context.MODE_PRIVATE, null);
+        db = openOrCreateDatabase("ComplaintRegistrationDB.db", Context.MODE_PRIVATE, null);
         //db.execSQL("CREATE TABLE IF NOT EXISTS  CaseRegistration(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,caseId VARCHAR,Status VARCHAR,Type1 VARCHAR,VName VARCHAR,CName VARCHAR,Complaintname VARCHAR,Mobile VARCHAR,Place VARCHAR,Date1 VARCHAR,Time1 VARCHAR,assigned INT);");
         filecomplaint.setOnClickListener(new View.OnClickListener() {
             String Idgenerated;

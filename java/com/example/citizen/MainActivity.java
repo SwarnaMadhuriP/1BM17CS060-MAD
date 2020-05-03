@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         //database and tables
 
-        db=openOrCreateDatabase("ComplaintRegistrationDB", Context.MODE_PRIVATE, null);
+        db=openOrCreateDatabase("ComplaintRegistrationDB.db", Context.MODE_PRIVATE, null);
 
         db.execSQL("CREATE TABLE IF NOT EXISTS detective(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,password VARCHAR,firstname VARCHAR,lastname VARCHAR,address VARCHAR,phonenumber INT,email VARCHAR,dateOfJoin date,caseAssigned INT,caseClosed INT,branchDetails VARCHAR);");
 

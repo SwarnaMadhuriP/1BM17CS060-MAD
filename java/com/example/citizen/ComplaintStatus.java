@@ -31,15 +31,15 @@ public class ComplaintStatus extends AppCompatActivity  {
                     showMessage("Error", "Please enter ComplaintId");
                     return;
                 }
-                Cursor c = db.rawQuery("SELECT Status FROM CaseRegistration WHERE Id='" + complaintid.getText() + "'", null);
+                Cursor c = db.rawQuery("SELECT * FROM CaseRegistration WHERE Id='" + complaintid.getText() + "'", null);
                 if (c.getCount() == 0) {
                     showMessage("Error", "Complaint Not found");
                     return;
                 }
                 StringBuffer buffer = new StringBuffer();
                 while (c.moveToNext()) {
-                    buffer.append("Complaint Status is : " + c.getString(0) + "\n\n");
-                    //buffer.append("Name: " + c.getString(1) + "\n");
+                    buffer.append("Complaint Status is : " + c.getString(2) + "\n\n");
+                   // buffer.append("Name: " + c.getString(1) + "\n");
                     //buffer.append("Marks: " + c.getString(2) + "\n\n");
 
                     showMessage("ComplaintStatus:", buffer.toString()
